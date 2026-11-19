@@ -1,0 +1,690 @@
+<title>Ironman Cascais 2027</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column de secções empilhadas, faixa de topo tipo "dorsal" com contagem decrescente; plano semanal + registo lado a lado em ecrãs largos */
+:root {
+  --bg: #F2F5F7; --surface: #FFFFFF; --ink: #0F2231; --muted: #5A6B78; --line: #D7E0E6;
+  --accent: #0A5C78; --buoy: #E0522A; --accent-ink: #FFFFFF;
+  --swim: #1F8FB8; --bike: #C98A12; --run: #D2452F; --strength: #6B6FA8; --rest: #9AA9B4;
+  --ph1: #A9CFDD; --ph2: #6AAAC4; --ph3: #3483A6; --ph4: #175E80; --ph5: #E0522A; --ph6: #8FA3B0;
+  --ok: #2E8B57;
+  --hero-bg: #0A5C78; --hero-ink: #FFFFFF; --hero-pop: #FFB59C;
+  --f-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0B1720; --surface: #12222E; --ink: #E6EEF3; --muted: #93A6B4; --line: #22384A;
+  --accent: #4FB3D6; --buoy: #FF7A4D; --accent-ink: #0B1720;
+  --swim: #4FB3D6; --bike: #F0B444; --run: #F06A52; --strength: #9A9EDB; --rest: #5E7584;
+  --ph1: #2D5568; --ph2: #3A7893; --ph3: #4E9CBD; --ph4: #7CC3E0; --ph5: #FF7A4D; --ph6: #5E7584;
+  --ok: #5CC98A; --hero-bg: #0F3A4C; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0B1720; --surface: #12222E; --ink: #E6EEF3; --muted: #93A6B4; --line: #22384A;
+  --accent: #4FB3D6; --buoy: #FF7A4D; --accent-ink: #0B1720;
+  --swim: #4FB3D6; --bike: #F0B444; --run: #F06A52; --strength: #9A9EDB; --rest: #5E7584;
+  --ph1: #2D5568; --ph2: #3A7893; --ph3: #4E9CBD; --ph4: #7CC3E0; --ph5: #FF7A4D; --ph6: #5E7584;
+  --ok: #5CC98A; --hero-bg: #0F3A4C; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: .01em; }
+h2 { font-size: 1.9rem; font-weight: 600; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+.eyebrow { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.num { font-variant-numeric: tabular-nums; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--buoy); outline-offset: 2px; }
+
+/* Hero */
+.hero { background: var(--hero-bg); color: var(--hero-ink); }
+.hero .wrap { padding-block: 32px 28px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; align-items: end; }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.6rem); line-height: .92; font-weight: 700; text-transform: uppercase; }
+.hero h1 span { display: block; font-weight: 500; opacity: .8; font-size: .5em; letter-spacing: .08em; }
+.hero .eyebrow { color: inherit; opacity: .75; }
+.legs { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; font-family: var(--f-mono); font-size: .85rem; }
+.legs b { font-family: var(--f-display); font-size: 1.5rem; font-weight: 600; margin-right: 4px; }
+.countdown { display: flex; gap: 18px; justify-content: flex-end; flex-wrap: wrap; }
+.countdown div { text-align: right; }
+.countdown strong { display: block; font-family: var(--f-display); font-size: clamp(2.8rem, 8vw, 4.8rem); line-height: 1; font-weight: 700; font-variant-numeric: tabular-nums; }
+.hero .countdown .buoy strong { color: var(--hero-pop); }
+.race-date { text-align: right; font-family: var(--f-mono); font-size: .8rem; opacity: .85; margin-top: 8px; }
+
+main { padding-block: 28px 56px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+main > section { min-width: 0; }
+section > header { display: flex; justify-content: space-between; align-items: end; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; min-width: 0; }
+
+/* Fases */
+.phases { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.phase { border-top: 4px solid var(--c); padding-top: 8px; min-width: 0; }
+.phase.now { background: var(--surface); outline: 1px solid var(--line); border-radius: 0 0 8px 8px; }
+.phase h3 { font-size: 1.1rem; }
+.phase p { margin: 2px 0 0; font-size: .82rem; color: var(--muted); }
+.phase .dates { font-family: var(--f-mono); font-size: .72rem; color: var(--muted); }
+
+/* Gráfico */
+.chart-box { overflow-x: auto; }
+.chart-box svg { display: block; width: 100%; min-width: 640px; height: auto; }
+.chart-box text { fill: var(--muted); font-family: var(--f-mono); font-size: 11px; }
+.grid-line { stroke: var(--line); stroke-width: 1; }
+.bar-now { stroke: var(--ink); stroke-width: 2; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .8rem; color: var(--muted); margin-top: 10px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: var(--c); margin-right: 6px; vertical-align: -1px; }
+
+/* Semana */
+.two { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.week-nav { display: flex; align-items: center; gap: 8px; }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.week-meta { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; margin-bottom: 12px; }
+.pill { display: inline-block; font-family: var(--f-mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: var(--c, var(--line)); color: var(--ink); }
+.pill.dark { color: var(--accent-ink); }
+.days { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.days li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+.days li.today .dname { color: var(--buoy); }
+.dname { font-family: var(--f-display); font-weight: 600; font-size: 1.15rem; line-height: 1.2; }
+.dname small { display: block; font-family: var(--f-mono); font-weight: 400; font-size: .7rem; color: var(--muted); }
+.sess { display: flex; gap: 10px; align-items: baseline; }
+.sess + .sess { margin-top: 4px; }
+.sess .tag { flex: none; width: 74px; font-size: .72rem; font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--c); font-weight: 500; }
+.sess .dur { flex: none; font-family: var(--f-mono); font-size: .8rem; color: var(--muted); width: 52px; text-align: right; }
+.sess .txt { min-width: 0; }
+.focus { font-size: .9rem; color: var(--muted); margin: 0 0 8px; }
+
+/* Totais */
+.totals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
+.total { border-left: 3px solid var(--c); padding-left: 10px; }
+.total strong { display: block; font-family: var(--f-display); font-size: 1.6rem; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.total span { font-size: .75rem; color: var(--muted); }
+.meter { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+.meter i { display: block; height: 100%; background: var(--c); }
+
+/* Formulário */
+form.log { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+form.log label { display: grid; gap: 3px; font-size: .78rem; color: var(--muted); min-width: 0; }
+form.log .full { grid-column: 1 / -1; }
+input, select, textarea { background: var(--bg); border: 1px solid var(--line); border-radius: 7px; padding: 7px 9px; width: 100%; min-width: 0; }
+textarea { resize: vertical; min-height: 40px; }
+.loglist { list-style: none; margin: 16px 0 0; padding: 0; }
+.loglist li { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); align-items: center; }
+.loglist .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.loglist .l1 { font-size: .88rem; }
+.loglist .l2 { font-size: .76rem; color: var(--muted); font-family: var(--f-mono); }
+.del { border: 0; background: none; color: var(--muted); cursor: pointer; font-size: .78rem; padding: 4px 6px; border-radius: 6px; }
+.del:hover { color: var(--run); }
+.del.confirm { color: var(--accent-ink); background: var(--run); }
+.empty { color: var(--muted); font-size: .88rem; padding: 12px 0; }
+.status { font-size: .75rem; color: var(--muted); font-family: var(--f-mono); }
+
+/* Checklist */
+.checks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.checks h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.checks label { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; border-top: 1px solid var(--line); font-size: .9rem; cursor: pointer; }
+.checks input { width: 18px; height: 18px; margin-top: 2px; flex: none; accent-color: var(--accent); }
+.checks label.done span { color: var(--muted); text-decoration: line-through; }
+.progress { font-family: var(--f-mono); font-size: .8rem; color: var(--muted); }
+
+/* Percurso */
+.course { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.leg { border-top: 4px solid var(--c); padding-top: 10px; }
+.leg .big { font-family: var(--f-display); font-size: 2.2rem; font-weight: 700; line-height: 1; }
+.leg p { margin: 6px 0 0; font-size: .9rem; color: var(--muted); }
+.note { font-size: .82rem; color: var(--muted); margin-top: 12px; max-width: 70ch; }
+
+/* Config */
+.cfg { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; }
+.cfg label { display: grid; gap: 3px; font-size: .78rem; color: var(--muted); }
+.cfg input { width: auto; }
+
+@media (max-width: 860px) {
+  .hero .wrap, .two { grid-template-columns: minmax(0, 1fr); }
+  .countdown { justify-content: flex-start; } .countdown div, .race-date { text-align: left; }
+  .phases { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 14px; }
+  .checks, .course { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  .phases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .totals { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .sess .tag { width: 60px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Plano de preparação · 140.6</div>
+      <h1><span>Ironman Portugal</span>Cascais 2027</h1>
+      <div class="legs">
+        <div><b>3,8</b>km natação</div>
+        <div><b>180</b>km ciclismo</div>
+        <div><b>42,2</b>km corrida</div>
+        <div><b>17</b>h tempo limite</div>
+      </div>
+    </div>
+    <div>
+      <div class="countdown" aria-live="polite">
+        <div class="buoy"><strong id="cd-days">—</strong><span class="eyebrow">dias</span></div>
+        <div><strong id="cd-weeks">—</strong><span class="eyebrow">semanas</span></div>
+        <div><strong id="cd-hours">—</strong><span class="eyebrow">horas</span></div>
+      </div>
+      <div class="race-date" id="race-date-label"></div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section aria-labelledby="h-fases">
+    <header>
+      <div><div class="eyebrow">Periodização</div><h2 id="h-fases">As seis fases até à partida</h2></div>
+      <div class="status" id="plan-span"></div>
+    </header>
+    <div class="phases" id="phases"></div>
+  </section>
+
+  <section aria-labelledby="h-volume">
+    <header>
+      <div><div class="eyebrow">Volume planeado</div><h2 id="h-volume">Horas por semana</h2></div>
+      <div class="status">Cada 4.ª semana é de recuperação (≈65 % do volume)</div>
+    </header>
+    <div class="panel chart-box" id="chart"></div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <section aria-labelledby="h-semana">
+    <div class="two">
+      <div class="panel">
+        <header>
+          <div><div class="eyebrow" id="week-eyebrow">Semana</div><h2 id="h-semana">Plano da semana</h2></div>
+          <div class="week-nav">
+            <button class="btn" id="prev" type="button" aria-label="Semana anterior">←</button>
+            <button class="btn" id="cur" type="button">Hoje</button>
+            <button class="btn" id="next" type="button" aria-label="Semana seguinte">→</button>
+          </div>
+        </header>
+        <div class="week-meta" id="week-meta"></div>
+        <p class="focus" id="week-focus"></p>
+        <ul class="days" id="days"></ul>
+      </div>
+
+      <div class="panel">
+        <header>
+          <div><div class="eyebrow">Registo</div><h2>Treinos feitos</h2></div>
+          <span class="status" id="db-status">a carregar…</span>
+        </header>
+        <div class="totals" id="totals"></div>
+        <form class="log" id="log-form">
+          <label>Data<input type="date" id="f-date" required></label>
+          <label>Modalidade
+            <select id="f-sport">
+              <option value="swim">Natação</option>
+              <option value="bike">Ciclismo</option>
+              <option value="run">Corrida</option>
+              <option value="strength">Força</option>
+            </select>
+          </label>
+          <label>Duração (min)<input type="number" id="f-min" min="1" max="900" inputmode="numeric" required placeholder="60"></label>
+          <label>Distância (km)<input type="number" id="f-km" min="0" step="0.1" inputmode="decimal" placeholder="opcional"></label>
+          <label>Esforço (RPE 1–10)<input type="number" id="f-rpe" min="1" max="10" inputmode="numeric" placeholder="6"></label>
+          <label>&nbsp;<button class="btn primary" type="submit">Registar treino</button></label>
+          <label class="full">Notas<textarea id="f-notes" rows="2" placeholder="Sensações, nutrição, vento no Guincho…"></textarea></label>
+        </form>
+        <ul class="loglist" id="loglist"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-check">
+    <header>
+      <div><div class="eyebrow">Lista de verificação</div><h2 id="h-check">Logística, material e saúde</h2></div>
+      <span class="progress" id="check-progress"></span>
+    </header>
+    <div class="panel checks" id="checks"></div>
+  </section>
+
+  <section aria-labelledby="h-percurso">
+    <header><div><div class="eyebrow">O percurso</div><h2 id="h-percurso">O que esperar em Cascais</h2></div></header>
+    <div class="course">
+      <div class="leg" style="--c: var(--swim)"><div class="eyebrow">Natação</div><div class="big">3,8 km</div>
+        <p>No mar, na baía de Cascais. Treina com fato de neopreno em águas abertas, orientação (olhar para a frente a cada 6–8 braçadas) e partidas em grupo.</p></div>
+      <div class="leg" style="--c: var(--bike)"><div class="eyebrow">Ciclismo</div><div class="big">180 km</div>
+        <p>Costa atlântica com vento forte junto ao Guincho e subidas na zona de Sintra. Faz treinos longos em terreno ondulado e com vento, e pratica a posição aero.</p></div>
+      <div class="leg" style="--c: var(--run)"><div class="eyebrow">Corrida</div><div class="big">42,2 km</div>
+        <p>Percurso por voltas à beira-mar entre Cascais e Estoril, essencialmente plano mas exposto ao sol e ao vento. Treina corrida depois de bike (brick).</p></div>
+    </div>
+    <p class="note">A data de 2027 ainda não está confirmada: o plano usa sábado, 16 de outubro de 2027 (a prova costuma ser em meados de outubro). Confirma a data e o percurso no site oficial da IRONMAN e ajusta em baixo; o plano recalcula sozinho.</p>
+  </section>
+
+  <section aria-labelledby="h-cfg">
+    <header><div><div class="eyebrow">Definições</div><h2 id="h-cfg">Ajustar o plano</h2></div></header>
+    <form class="panel cfg" id="cfg-form">
+      <label>Data da prova<input type="date" id="c-race"></label>
+      <label>Início do plano<input type="date" id="c-start"></label>
+      <label>Horas na semana de pico<input type="number" id="c-peak" min="6" max="30" step="0.5"></label>
+      <button class="btn primary" type="submit">Guardar</button>
+      <span class="status" id="cfg-status"></span>
+    </form>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var DEFAULTS = { race: "2027-10-16", start: "2026-11-23", peak: 14 };
+  var SPORT = {
+    swim: { name: "Natação", c: "var(--swim)" },
+    bike: { name: "Ciclismo", c: "var(--bike)" },
+    run: { name: "Corrida", c: "var(--run)" },
+    strength: { name: "Força", c: "var(--strength)" },
+    brick: { name: "Brick", c: "var(--bike)" },
+    rest: { name: "Descanso", c: "var(--rest)" }
+  };
+  var DAYS = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
+  var MONTHS = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+
+  // Fases: nome, foco, cor e template da semana (peso relativo de cada sessão)
+  var PHASES = [
+    { key: "base1", name: "Base 1", c: "var(--ph1)", dark: false, from: .45, to: .60,
+      focus: "Volume aeróbio fácil (Z2), técnica de natação e força geral. Criar consistência.",
+      week: [
+        [["strength", .5, "Força geral + mobilidade"]],
+        [["swim", 1, "Técnica: drills + 8×100 m Z2"], ["run", .8, "Z2 fácil + 6 acelerações de 20 s"]],
+        [["bike", 1.2, "Z2, cadência 90+ rpm"]],
+        [["swim", 1, "Resistência: 3×400 m Z2"], ["strength", .4, "Core e estabilidade"]],
+        [["rest", 0, "Descanso"]],
+        [["bike", 2.4, "Longa Z2, terreno ondulado"]],
+        [["run", 1.3, "Longa Z2, conversa possível"]]
+      ] },
+    { key: "base2", name: "Base 2", c: "var(--ph2)", dark: false, from: .60, to: .72,
+      focus: "Aumentar a duração das sessões longas e introduzir tempo (Z3) curto.",
+      week: [
+        [["strength", .5, "Força: agachamento, peso morto, gémeos"]],
+        [["swim", 1, "6×200 m Z3 com 20 s de pausa"], ["run", .9, "Z2 com 3×8 min Z3"]],
+        [["bike", 1.3, "2×20 min Z3 em plano"]],
+        [["swim", 1, "Contínuo 2–2,5 km Z2"], ["strength", .4, "Core"]],
+        [["run", .6, "Recuperação Z1–Z2"]],
+        [["bike", 2.8, "Longa Z2 com subidas (Sintra)"]],
+        [["run", 1.5, "Longa Z2"]]
+      ] },
+    { key: "build1", name: "Construção 1", c: "var(--ph3)", dark: true, from: .72, to: .86,
+      focus: "Trabalho específico: limiar, sweet spot na bike e primeiros bricks.",
+      week: [
+        [["rest", 0, "Descanso ou mobilidade"]],
+        [["swim", 1, "Limiar: 10×200 m"], ["run", .9, "5×1 km em Z4"]],
+        [["bike", 1.4, "3×15 min sweet spot"]],
+        [["swim", 1.1, "Águas abertas / fato, 2,5–3 km"], ["strength", .4, "Força de manutenção"]],
+        [["run", .7, "Z2 + acelerações"]],
+        [["brick", 3.2, "Bike longa com blocos a ritmo Ironman + 20 min corrida"]],
+        [["run", 1.6, "Longa, último terço a ritmo de prova"]]
+      ] },
+    { key: "build2", name: "Construção 2", c: "var(--ph4)", dark: true, from: .86, to: .97,
+      focus: "Ritmo de prova, nutrição em treino (60–90 g HC/h) e um meio Ironman de teste.",
+      week: [
+        [["rest", 0, "Descanso"]],
+        [["swim", 1, "4×500 m ritmo de prova"], ["run", .9, "3×3 km ritmo de maratona Ironman"]],
+        [["bike", 1.4, "2×30 min Z3 em posição aero"]],
+        [["swim", 1.1, "Mar: 3–3,5 km contínuos"], ["strength", .3, "Força de manutenção"]],
+        [["run", .7, "Z2 solta"]],
+        [["brick", 3.6, "4,5–5 h bike com nutrição de prova + 30 min corrida"]],
+        [["run", 1.7, "Longa até 2 h 15"]]
+      ] },
+    { key: "peak", name: "Pico", c: "var(--ph5)", dark: true, from: 1, to: 1,
+      focus: "Ensaios gerais: equipamento, ritmo e nutrição exatamente como no dia.",
+      week: [
+        [["rest", 0, "Descanso"]],
+        [["swim", 1, "3×1000 m ritmo de prova"], ["run", .8, "Z2 + 4×1 km ritmo de prova"]],
+        [["bike", 1.3, "90 min com 3×20 min ritmo Ironman"]],
+        [["swim", 1.2, "3,8 km contínuos no mar"]],
+        [["run", .6, "Recuperação"]],
+        [["brick", 4, "Ensaio: 5–6 h bike + 45 min corrida, tudo como na prova"]],
+        [["run", 1.4, "Longa 1 h 45, fácil"]]
+      ] },
+    { key: "taper", name: "Afinação", c: "var(--ph6)", dark: false, from: .6, to: .35,
+      focus: "Menos volume, a mesma intensidade. Dormir, comer bem, preparar material.",
+      week: [
+        [["rest", 0, "Descanso"]],
+        [["swim", 1, "Curta com 6×100 m ritmo de prova"], ["run", .7, "30–40 min com 4 acelerações"]],
+        [["bike", 1.2, "60–75 min com 3×5 min ritmo Ironman"]],
+        [["swim", .8, "Mar, 20–30 min, testar fato"]],
+        [["rest", 0, "Descanso / check-in"]],
+        [["brick", 1, "Bike 30 min + corrida 10 min, ativação"]],
+        [["run", .5, "Solta 20–30 min"]]
+      ] }
+  ];
+  var RACE_WEEK = [
+    [["rest", 0, "Descanso"]],
+    [["swim", 1, "20 min fáceis com 4×50 m rápidos"], ["run", .8, "25 min com 3 acelerações"]],
+    [["bike", 1.3, "45 min com 3×3 min ritmo de prova"]],
+    [["swim", .7, "Mar, 15–20 min no percurso"], ["run", .5, "15 min soltos"]],
+    [["bike", .6, "Rolar 20–30 min · entregar bike e sacos"]],
+    [["rest", 0, "DIA DA PROVA · 3,8 + 180 + 42,2"]],
+    [["rest", 0, "Recuperar e celebrar"]]
+  ];
+  var CHECKS = [
+    ["Logística", [
+      ["insc", "Inscrição feita"], ["aloj", "Alojamento em Cascais reservado"], ["lic", "Licença federativa (FTP) ou licença de um dia"],
+      ["seg", "Seguro desportivo"], ["test-ol", "Triatlo olímpico de teste marcado"], ["test-70", "Meio Ironman (70.3) de teste marcado"]]],
+    ["Material", [
+      ["fato", "Fato de neopreno testado no mar"], ["fit", "Bike fit feito"], ["aero", "Posição aero confortável 4 h+"],
+      ["rev", "Revisão da bike 2–3 semanas antes"], ["sap", "Sapatilhas de prova com 50–100 km"], ["furo", "Kit de furos testado (sabes trocar em < 5 min)"]]],
+    ["Saúde e nutrição", [
+      ["med", "Exame médico desportivo / ECG"], ["nutr", "Nutrição de prova testada em treinos longos"], ["hc", "Tolerância a 60–90 g HC/h treinada"],
+      ["sal", "Plano de hidratação e sódio para calor"], ["sono", "Rotina de sono 7–8 h"], ["zonas", "Zonas de FC / potência definidas"]]]
+  ];
+
+  // ---------- datas ----------
+  function parse(s) { var p = String(s).split("-").map(Number); return new Date(p[0], p[1] - 1, p[2], 12); }
+  function iso(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+  function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  function monday(d) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12); var w = (x.getDay() + 6) % 7; return addDays(x, -w); }
+  function fmt(d) { return d.getDate() + " " + MONTHS[d.getMonth()]; }
+  function fmtY(d) { return fmt(d) + " " + d.getFullYear(); }
+  function weeksBetween(a, b) { return Math.round((b - a) / (7 * 864e5)); }
+  function hm(min) { min = Math.round(min); var h = Math.floor(min / 60), m = min % 60; return h ? h + "h" + (m ? String(m).padStart(2, "0") : "") : m + "′"; }
+
+  // ---------- estado ----------
+  var cfg = Object.assign({}, DEFAULTS);
+  var logs = [];
+  var checks = {};
+  var db = null;
+  var plan = [];
+  var viewIdx = 0;
+
+  function lsGet(k, def) { try { var v = localStorage.getItem("imc27:" + k); return v ? JSON.parse(v) : def; } catch (e) { return def; } }
+  function lsSet(k, v) { try { localStorage.setItem("imc27:" + k, JSON.stringify(v)); } catch (e) {} }
+
+  // ---------- plano ----------
+  function buildPlan() {
+    var race = parse(cfg.race), start = monday(parse(cfg.start)), raceMon = monday(race);
+    var n = weeksBetween(start, raceMon) + 1;
+    if (n < 12) n = 12;
+    var lens = { taper: 2, peak: 3, build2: 10, build1: 10 };
+    var rest = Math.max(4, n - 25);
+    lens.base1 = Math.ceil(rest / 2); lens.base2 = rest - lens.base1;
+    var order = ["base1", "base2", "build1", "build2", "peak", "taper"];
+    var total = order.reduce(function (s, k) { return s + lens[k]; }, 0);
+    // se o plano for mais curto, encurta as fases de base/construção
+    var over = total - n;
+    ["base1", "base2", "build1", "build2"].forEach(function (k) { while (over > 0 && lens[k] > 2) { lens[k]--; over--; } });
+    var weeks = [], i = 0, firstMon = addDays(raceMon, -7 * (n - 1));
+    order.forEach(function (k, pi) {
+      var ph = PHASES[pi], L = lens[k];
+      ph.start = addDays(firstMon, i * 7); ph.weeks = L;
+      for (var j = 0; j < L; j++, i++) {
+        var t = L > 1 ? j / (L - 1) : 0;
+        var f = ph.from + (ph.to - ph.from) * t;
+        var recovery = (k !== "peak" && k !== "taper") && j % 4 === 3;
+        var isRace = i === n - 1;
+        var hours = cfg.peak * f * (recovery ? .65 : 1);
+        if (isRace) hours = cfg.peak * .28;
+        weeks.push({ idx: i, mon: addDays(firstMon, i * 7), phase: ph, recovery: recovery, race: isRace, hours: hours });
+      }
+    });
+    plan = weeks;
+  }
+  function currentIdx() {
+    var m = monday(new Date());
+    var i = weeksBetween(plan[0].mon, m);
+    return Math.max(0, Math.min(plan.length - 1, i));
+  }
+
+  // ---------- render: topo ----------
+  function renderCountdown() {
+    var race = parse(cfg.race); race.setHours(7, 0, 0, 0);
+    var ms = race - new Date();
+    var days = Math.max(0, Math.ceil(ms / 864e5));
+    document.getElementById("cd-days").textContent = days;
+    document.getElementById("cd-weeks").textContent = Math.max(0, Math.floor(ms / (7 * 864e5)));
+    document.getElementById("cd-hours").textContent = Math.max(0, Math.round(ms / 36e5)).toLocaleString("pt-PT");
+    var dn = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"][race.getDay()];
+    document.getElementById("race-date-label").textContent = "Partida: " + dn + ", " + fmtY(race) + (cfg.race === DEFAULTS.race ? " (data provisória)" : "");
+  }
+
+  function renderPhases() {
+    var cur = plan[currentIdx()].phase;
+    var el = document.getElementById("phases"); el.innerHTML = "";
+    PHASES.forEach(function (ph) {
+      var d = document.createElement("div");
+      d.className = "phase" + (ph === cur ? " now" : "");
+      d.style.setProperty("--c", ph.c);
+      var end = addDays(ph.start, ph.weeks * 7 - 1);
+      d.innerHTML = '<div class="dates num"></div><h3></h3><p></p>';
+      d.children[0].textContent = fmt(ph.start) + " – " + fmt(end) + " · " + ph.weeks + " sem";
+      d.children[1].textContent = ph.name + (ph === cur ? " · agora" : "");
+      d.children[2].textContent = ph.focus;
+      el.appendChild(d);
+    });
+    document.getElementById("plan-span").textContent = plan.length + " semanas · " + fmtY(plan[0].mon) + " → " + fmtY(parse(cfg.race));
+  }
+
+  function renderChart() {
+    var W = 960, H = 240, L = 34, R = 8, T = 16, B = 34;
+    var maxH = Math.ceil(Math.max.apply(null, plan.map(function (w) { return w.hours; })) / 5) * 5;
+    var actual = weeklyActual();
+    var bw = (W - L - R) / plan.length;
+    var y = function (h) { return T + (H - T - B) * (1 - h / maxH); };
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Horas planeadas por semana">';
+    for (var g = 0; g <= maxH; g += 5) {
+      s += '<line class="grid-line" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(g) + '" y2="' + y(g) + '"/>';
+      s += '<text x="' + (L - 6) + '" y="' + (y(g) + 4) + '" text-anchor="end">' + g + 'h</text>';
+    }
+    var ci = currentIdx(), today = monday(new Date()) >= plan[0].mon;
+    plan.forEach(function (w, i) {
+      var x = L + i * bw + 1.5, h = y(0) - y(w.hours);
+      var fill = w.race ? "var(--buoy)" : w.phase.c;
+      s += '<rect x="' + x.toFixed(1) + '" y="' + y(w.hours).toFixed(1) + '" width="' + (bw - 3).toFixed(1) + '" height="' + h.toFixed(1) + '" rx="2" style="fill:' + fill + '"' + (i === ci && today ? ' class="bar-now"' : '') + '><title>Semana ' + (i + 1) + ' (' + fmt(w.mon) + '): ' + w.hours.toFixed(1) + ' h planeadas' + (w.recovery ? ' · recuperação' : '') + (actual[i] ? ' · feitas ' + (actual[i] / 60).toFixed(1) + ' h' : '') + '</title></rect>';
+      if (actual[i]) {
+        var ya = y(Math.min(maxH, actual[i] / 60));
+        s += '<line x1="' + (x - 1) + '" x2="' + (x + bw - 2) + '" y1="' + ya + '" y2="' + ya + '" style="stroke:var(--ink);stroke-width:2.5"/>';
+      }
+      if (i % 4 === 0 || w.race) s += '<text x="' + (x + (bw - 3) / 2).toFixed(1) + '" y="' + (H - B + 16) + '" text-anchor="middle">' + (w.race ? "PROVA" : fmt(w.mon)) + '</text>';
+    });
+    s += '</svg>';
+    document.getElementById("chart").innerHTML = s;
+    var lg = PHASES.map(function (p) { return '<span><i style="--c:' + p.c + '"></i>' + p.name + '</span>'; }).join("");
+    lg += '<span><i style="--c:var(--ink);height:3px;vertical-align:3px"></i>Horas feitas (registo)</span>';
+    document.getElementById("legend").innerHTML = lg;
+  }
+
+  // ---------- render: semana ----------
+  function renderWeek() {
+    var w = plan[viewIdx], ph = w.phase;
+    var tpl = w.race ? RACE_WEEK : ph.week;
+    var sum = 0; tpl.forEach(function (d) { d.forEach(function (s) { sum += s[1]; }); });
+    var perW = w.hours * 60 / sum;
+    var todayIso = iso(new Date());
+    document.getElementById("week-eyebrow").textContent = "Semana " + (viewIdx + 1) + " de " + plan.length + " · " + fmt(w.mon) + " – " + fmt(addDays(w.mon, 6));
+    document.getElementById("h-semana").textContent = w.race ? "Semana da prova" : (viewIdx === currentIdx() ? "Esta semana" : "Plano da semana");
+    var meta = document.getElementById("week-meta");
+    meta.innerHTML = "";
+    var p = document.createElement("span"); p.className = "pill" + (ph.dark ? " dark" : ""); p.style.setProperty("--c", w.race ? "var(--buoy)" : ph.c); p.textContent = w.race ? "Prova" : ph.name;
+    meta.appendChild(p);
+    if (w.recovery) { var r = document.createElement("span"); r.className = "pill"; r.textContent = "Recuperação"; meta.appendChild(r); }
+    var t = document.createElement("span"); t.className = "num"; t.innerHTML = "<strong></strong> planeadas"; t.firstChild.textContent = hm(w.hours * 60);
+    meta.appendChild(t);
+    document.getElementById("week-focus").textContent = w.race ? "Mantém as pernas frescas, come hidratos, deixa tudo pronto no dia anterior." : (w.recovery ? "Semana leve: menos volume, mantém algumas acelerações curtas. Dorme mais." : ph.focus);
+    var ul = document.getElementById("days"); ul.innerHTML = "";
+    tpl.forEach(function (day, di) {
+      var date = addDays(w.mon, di);
+      var li = document.createElement("li");
+      if (iso(date) === todayIso) li.className = "today";
+      var dn = document.createElement("div"); dn.className = "dname"; dn.textContent = DAYS[di];
+      var sm = document.createElement("small"); sm.textContent = fmt(date); dn.appendChild(sm);
+      var box = document.createElement("div");
+      day.forEach(function (s) {
+        var row = document.createElement("div"); row.className = "sess"; row.style.setProperty("--c", SPORT[s[0]].c);
+        var tg = document.createElement("span"); tg.className = "tag"; tg.textContent = SPORT[s[0]].name;
+        var du = document.createElement("span"); du.className = "dur"; du.textContent = s[1] ? hm(Math.round(s[1] * perW / 5) * 5) : "";
+        var tx = document.createElement("span"); tx.className = "txt"; tx.textContent = s[2];
+        row.appendChild(tg); row.appendChild(du); row.appendChild(tx); box.appendChild(row);
+      });
+      li.appendChild(dn); li.appendChild(box); ul.appendChild(li);
+    });
+    document.getElementById("prev").disabled = viewIdx === 0;
+    document.getElementById("next").disabled = viewIdx === plan.length - 1;
+    renderTotals();
+  }
+
+  // ---------- registo ----------
+  function weeklyActual() {
+    var out = {};
+    logs.forEach(function (l) {
+      var i = weeksBetween(plan[0].mon, monday(parse(l.date)));
+      if (i >= 0 && i < plan.length) out[i] = (out[i] || 0) + (Number(l.min) || 0);
+    });
+    return out;
+  }
+  function renderTotals() {
+    var w = plan[viewIdx], from = iso(w.mon), to = iso(addDays(w.mon, 6));
+    var tpl = w.race ? RACE_WEEK : w.phase.week, sum = 0, planned = { swim: 0, bike: 0, run: 0 };
+    tpl.forEach(function (d) { d.forEach(function (s) { sum += s[1]; }); });
+    tpl.forEach(function (d) { d.forEach(function (s) {
+      var m = s[1] * w.hours * 60 / sum;
+      if (s[0] === "brick") { planned.bike += m * .85; planned.run += m * .15; } else if (planned[s[0]] !== undefined) planned[s[0]] += m;
+    }); });
+    var done = { swim: 0, bike: 0, run: 0 }, km = { swim: 0, bike: 0, run: 0 };
+    logs.forEach(function (l) { if (l.date >= from && l.date <= to && done[l.sport] !== undefined) { done[l.sport] += Number(l.min) || 0; km[l.sport] += Number(l.km) || 0; } });
+    var el = document.getElementById("totals"); el.innerHTML = "";
+    ["swim", "bike", "run"].forEach(function (k) {
+      var d = document.createElement("div"); d.className = "total"; d.style.setProperty("--c", SPORT[k].c);
+      var pct = planned[k] ? Math.min(100, done[k] / planned[k] * 100) : 0;
+      d.innerHTML = '<strong></strong><span></span><div class="meter"><i></i></div>';
+      d.children[0].textContent = hm(done[k]);
+      d.children[1].textContent = SPORT[k].name + " · de " + hm(planned[k]) + (km[k] ? " · " + km[k].toFixed(1).replace(".", ",") + " km" : "");
+      d.children[2].firstChild.style.width = pct + "%";
+      el.appendChild(d);
+    });
+  }
+  function renderLogs() {
+    var ul = document.getElementById("loglist"); ul.innerHTML = "";
+    var sorted = logs.slice().sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : (b.created || 0) - (a.created || 0); });
+    if (!sorted.length) {
+      var e = document.createElement("li"); e.className = "empty"; e.style.display = "block";
+      e.textContent = "Ainda sem treinos registados. Regista o primeiro acima e ele aparece aqui, no gráfico e nos totais da semana.";
+      ul.appendChild(e);
+    }
+    sorted.slice(0, 20).forEach(function (l) {
+      var li = document.createElement("li"); li.style.setProperty("--c", SPORT[l.sport] ? SPORT[l.sport].c : "var(--rest)");
+      var dot = document.createElement("span"); dot.className = "dot";
+      var body = document.createElement("div");
+      var l1 = document.createElement("div"); l1.className = "l1";
+      l1.textContent = (SPORT[l.sport] ? SPORT[l.sport].name : l.sport) + " · " + hm(l.min) + (l.km ? " · " + String(l.km).replace(".", ",") + " km" : "") + (l.rpe ? " · RPE " + l.rpe : "");
+      var l2 = document.createElement("div"); l2.className = "l2"; l2.textContent = fmtY(parse(l.date)) + (l.notes ? " — " + l.notes : "");
+      body.appendChild(l1); body.appendChild(l2);
+      var del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "Apagar";
+      del.addEventListener("click", function () {
+        if (!del.classList.contains("confirm")) { del.classList.add("confirm"); del.textContent = "Confirmar"; setTimeout(function () { del.classList.remove("confirm"); del.textContent = "Apagar"; }, 3000); return; }
+        removeLog(l);
+      });
+      li.appendChild(dot); li.appendChild(body); li.appendChild(del); ul.appendChild(li);
+    });
+  }
+  function addLog(entry) {
+    if (db) {
+      db.collection("treinos").add(entry).catch(function (e) { setStatus("Não foi possível guardar: " + (e && e.message || e)); });
+    } else { entry.id = "l" + Date.now(); logs.push(entry); lsSet("logs", logs); refreshLogs(); }
+  }
+  function removeLog(l) {
+    if (db && l.id) db.doc("treinos/" + l.id).delete().catch(function (e) { setStatus("Não foi possível apagar: " + (e && e.message || e)); });
+    else { logs = logs.filter(function (x) { return x !== l; }); lsSet("logs", logs); refreshLogs(); }
+  }
+  function refreshLogs() { renderLogs(); renderTotals(); renderChart(); }
+  function setStatus(t) { document.getElementById("db-status").textContent = t; }
+
+  // ---------- checklist ----------
+  function renderChecks() {
+    var el = document.getElementById("checks"); el.innerHTML = "";
+    var total = 0, done = 0;
+    CHECKS.forEach(function (grp) {
+      var col = document.createElement("div");
+      var h = document.createElement("h3"); h.textContent = grp[0]; col.appendChild(h);
+      grp[1].forEach(function (it) {
+        total++; if (checks[it[0]]) done++;
+        var lb = document.createElement("label"); if (checks[it[0]]) lb.className = "done";
+        var cb = document.createElement("input"); cb.type = "checkbox"; cb.id = "chk-" + it[0]; cb.checked = !!checks[it[0]];
+        cb.addEventListener("change", function () { checks[it[0]] = cb.checked; saveChecks(); renderChecks(); });
+        var sp = document.createElement("span"); sp.textContent = it[1];
+        lb.appendChild(cb); lb.appendChild(sp); col.appendChild(lb);
+      });
+      el.appendChild(col);
+    });
+    document.getElementById("check-progress").textContent = done + " de " + total + " feitos";
+  }
+  function saveChecks() {
+    if (db) db.doc("estado/checklist").set({ done: checks }).catch(function () {});
+    else lsSet("checks", checks);
+  }
+
+  // ---------- definições ----------
+  function fillCfg() {
+    document.getElementById("c-race").value = cfg.race;
+    document.getElementById("c-start").value = cfg.start;
+    document.getElementById("c-peak").value = cfg.peak;
+  }
+  function applyCfg(newCfg) {
+    cfg = Object.assign({}, DEFAULTS, newCfg || {});
+    cfg.peak = Number(cfg.peak) || DEFAULTS.peak;
+    buildPlan(); viewIdx = currentIdx();
+    fillCfg(); renderAll();
+  }
+  function renderAll() { renderCountdown(); renderPhases(); renderChart(); renderWeek(); renderLogs(); renderChecks(); }
+
+  document.getElementById("cfg-form").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var nc = { race: document.getElementById("c-race").value || DEFAULTS.race, start: document.getElementById("c-start").value || DEFAULTS.start, peak: Number(document.getElementById("c-peak").value) || DEFAULTS.peak };
+    if (parse(nc.race) <= parse(nc.start)) { document.getElementById("cfg-status").textContent = "A data da prova tem de ser depois do início do plano."; return; }
+    applyCfg(nc);
+    if (db) db.doc("estado/config").set(nc).then(function () { document.getElementById("cfg-status").textContent = "Guardado."; }).catch(function () { document.getElementById("cfg-status").textContent = "Não foi possível guardar."; });
+    else { lsSet("cfg", nc); document.getElementById("cfg-status").textContent = "Guardado neste navegador."; }
+  });
+  document.getElementById("log-form").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var min = Number(document.getElementById("f-min").value);
+    if (!min) return;
+    var entry = {
+      date: document.getElementById("f-date").value || iso(new Date()),
+      sport: document.getElementById("f-sport").value,
+      min: min,
+      km: Number(document.getElementById("f-km").value) || 0,
+      rpe: Number(document.getElementById("f-rpe").value) || 0,
+      notes: document.getElementById("f-notes").value.trim().slice(0, 300),
+      created: Date.now()
+    };
+    addLog(entry);
+    ["f-min", "f-km", "f-rpe", "f-notes"].forEach(function (id) { document.getElementById(id).value = ""; });
+  });
+  document.getElementById("prev").addEventListener("click", function () { if (viewIdx > 0) { viewIdx--; renderWeek(); } });
+  document.getElementById("next").addEventListener("click", function () { if (viewIdx < plan.length - 1) { viewIdx++; renderWeek(); } });
+  document.getElementById("cur").addEventListener("click", function () { viewIdx = currentIdx(); renderWeek(); });
+  document.getElementById("f-date").value = iso(new Date());
+
+  // ---------- arranque ----------
+  applyCfg(lsGet("cfg", null));
+  logs = lsGet("logs", []); checks = lsGet("checks", {});
+  renderAll();
+  setInterval(renderCountdown, 60000);
+
+  function localMode(msg) { db = null; setStatus(msg); }
+  var useP = window.claude && window.claude.use ? window.claude.use("db") : Promise.resolve(null);
+  var timer = setTimeout(function () { if (!db) localMode("guardado só neste navegador"); }, 10000);
+  useP.then(function (d) {
+    if (!d) { clearTimeout(timer); localMode("guardado só neste navegador"); return; }
+    db = d;
+    d.collection("treinos").onSnapshot(function (snap) {
+      clearTimeout(timer);
+      logs = snap.docs.map(function (doc) { var o = doc.data() || {}; o.id = doc.id; return o; });
+      setStatus("sincronizado · " + logs.length + " treinos");
+      refreshLogs();
+    }, function (e) { clearTimeout(timer); localMode("sem ligação ao registo (" + (e && e.code || "erro") + ")"); });
+    d.doc("estado/config").onSnapshot(function (s) { if (s.exists) applyCfg(s.data()); });
+    d.doc("estado/checklist").onSnapshot(function (s) { if (s.exists) { checks = (s.data() || {}).done || {}; renderChecks(); } });
+  }).catch(function () { clearTimeout(timer); localMode("guardado só neste navegador"); });
+})();
+</script>
